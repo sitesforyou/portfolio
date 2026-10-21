@@ -520,6 +520,38 @@ html, body { overflow-x: clip; }
 .tk-row { display: flex; gap: 10px; width: max-content; }
 .tk-row.r2 { transform: translateX(-30%); }
 .tk-row span { font-family: var(--f-mono); font-size: 0.8rem; color: var(--ink); border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; background: var(--panel); white-space: nowrap; }
+
+/* ===== Tema escuro fixo (v3.1) ===== */
+:root, :root[data-theme="light"], :root[data-theme="dark"] {
+  --bg: #090b0e; --panel: #12161a; --panel-2: #191e23; --line: #242b31;
+  --ink: #e7edf1; --muted: #8e9ba6;
+  --accent: #6cc4ff; --accent-ink: #06121b; --accent-soft: rgba(108, 196, 255, 0.12);
+  --ok: #4fd18b; --warn: #f0b44c; --err: #ff6b5e; --ai: #b48cff;
+  --note-bg: rgba(240, 180, 76, 0.05); --note-line: rgba(240, 180, 76, 0.30);
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg: #090b0e; --panel: #12161a; --panel-2: #191e23; --line: #242b31;
+    --ink: #e7edf1; --muted: #8e9ba6;
+    --accent: #6cc4ff; --accent-ink: #06121b; --accent-soft: rgba(108, 196, 255, 0.12);
+    --ok: #4fd18b; --warn: #f0b44c; --err: #ff6b5e; --ai: #b48cff;
+    --note-bg: rgba(240, 180, 76, 0.05); --note-line: rgba(240, 180, 76, 0.30);
+    color-scheme: dark;
+  }
+}
+body { background: var(--bg); color: var(--ink); }
+.feature, .item {
+  --bg: #0d1013; --panel: #12161a; --panel-2: #191e23; --line: #242b31;
+  --ink: #e7edf1; --muted: #8e9ba6;
+  --accent: #6cc4ff; --accent-ink: #06121b; --accent-soft: rgba(108, 196, 255, 0.12);
+  --ok: #4fd18b; --warn: #f0b44c; --err: #ff6b5e; --ai: #b48cff;
+  --note-bg: rgba(240, 180, 76, 0.05); --note-line: rgba(240, 180, 76, 0.30);
+  background: var(--panel); color: var(--ink); color-scheme: dark;
+  border: 1px solid var(--line);
+  box-shadow: 0 30px 70px -40px rgba(0, 0, 0, 0.9);
+}
+.n8n, .office, .console { --bg: #0a0d10; --panel: #15191d; --panel-2: #1b2025; --line: #262d33; }
 </style>
 </head>
 <body>
@@ -893,10 +925,7 @@ html, body { overflow-x: clip; }
     gsap.timeline({ scrollTrigger: { trigger: "#saas .grid3", start: "top 95%", end: "top 45%", scrub: 0.6 } })
       .fromTo("#saas .item", { y: 120, rotationX: 28, opacity: 0, transformPerspective: 900, transformOrigin: "50% 100%" }, { y: 0, rotationX: 0, opacity: 1, ease: "none", stagger: 0.18 });
 
-    /* cards das automações ganham profundidade ao passar */
-    gsap.utils.toArray("#automacoes .feature").forEach(function (f) {
-      gsap.fromTo(f, { scale: 0.94 }, { scale: 1, ease: "none", scrollTrigger: { trigger: f, start: "top bottom", end: "top 55%", scrub: 0.6 } });
-    });
+
     gsap.to(".hero h1", { y: -30, opacity: 0.35, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
 
     Array.prototype.forEach.call(document.querySelectorAll(".sec-head h2"), function (h) {
@@ -906,10 +935,10 @@ html, body { overflow-x: clip; }
 
     gsap.set(rvEls, { opacity: 0, y: 46 });
     ScrollTrigger.batch(rvEls, {
-      start: "top 90%", once: true,
+      start: "top 97%", once: true,
       onEnter: function (els) {
         els.forEach(function (e) { e.classList.add("in"); });
-        gsap.to(els, { opacity: 1, y: 0, duration: 1.15, ease: "expo.out", stagger: 0.1, overwrite: true });
+        gsap.to(els, { opacity: 1, y: 0, duration: 0.7, ease: "expo.out", stagger: 0.06, overwrite: "auto" });
       }
     });
 
@@ -924,7 +953,7 @@ html, body { overflow-x: clip; }
     });
 
     Array.prototype.forEach.call(document.querySelectorAll(".n8n"), function (n) {
-      gsap.from(n, { scale: 0.96, opacity: 0, y: 30, duration: 1.2, ease: "expo.out", scrollTrigger: { trigger: n, start: "top 90%" } });
+      gsap.from(n, { scale: 0.97, opacity: 0, y: 20, duration: 0.55, ease: "power3.out", scrollTrigger: { trigger: n, start: "top 98%" } });
     });
 
     Array.prototype.forEach.call(document.querySelectorAll(".stat b"), function (b) {
@@ -1188,16 +1217,16 @@ html, body { overflow-x: clip; }
         await whenVisible();
         var ids = stepIds(sc.steps[i]), trips = [];
         follow(ids[0]);
-        ids.forEach(function (id) { prev.forEach(function (p) { if (E[p + ">" + id]) trips.push(travel(p + ">" + id, sc.speed || 620, countTxt(sc))); }); });
+        ids.forEach(function (id) { prev.forEach(function (p) { if (E[p + ">" + id]) trips.push(travel(p + ">" + id, sc.speed || 360, countTxt(sc))); }); });
         await Promise.all(trips);
         ids.forEach(function (id) { setNode(id, "run"); if (def.onNode) def.onNode(id); });
-        await sleep(sc.work || 420);
+        await sleep(sc.work || 200);
         ids.forEach(function (id) { var st = (sc.marks && sc.marks[id]) || "ok"; setNode(id, st); logExec(id, st); });
         prev = ids;
-        await sleep(sc.gap || 160);
+        await sleep(sc.gap || 60);
       }
       status(sc.status[0], sc.status[1]);
-      await sleep(sc.hold || 2800);
+      await sleep(sc.hold || 1500);
     }
     function still(sc, si) {
       reset(sc, si);
@@ -1217,7 +1246,7 @@ html, body { overflow-x: clip; }
     still(def.scenarios[0], 0);
     (async function loop() {
       var i = 0;
-      await whenVisible(); await sleep(500);
+      await whenVisible(); await sleep(60);
       for (;;) { var k = i % def.scenarios.length; await play(def.scenarios[k], k); i++; }
     })();
   }
@@ -1309,7 +1338,7 @@ html, body { overflow-x: clip; }
     ],
     edges: [["g1", "g2"], ["g2", "g3"], ["g3", "g4"], ["g4", "g5"], ["g5", "g6"]],
     onNode: showAgent,
-    scenarios: [{ name: "handoff", steps: ["g1", "g2", "g3", "g4", "g5", "g6"], speed: 700, work: 1500, gap: 300, hold: 2400, status: ["cliente em acompanhamento", "ok"] }]
+    scenarios: [{ name: "handoff", steps: ["g1", "g2", "g3", "g4", "g5", "g6"], speed: 380, work: 650, gap: 100, hold: 1400, status: ["cliente em acompanhamento", "ok"] }]
   });
   if (reduce) showAgent("g1");
 
@@ -1455,7 +1484,7 @@ html, body { overflow-x: clip; }
       { id: "c", x: 490, y: 112, icon: "bars", label: "Comparação", sub: "oito semanas" }
     ],
     edges: [["d", "a"], ["d", "b"], ["a", "x"], ["b", "x"], ["x", "c"]],
-    scenarios: [{ name: "rodada", steps: ["d", ["a", "b"], "x", "c"], speed: 650, work: 700, hold: 2400, status: ["resultados comparados", "ok"] }]
+    scenarios: [{ name: "rodada", steps: ["d", ["a", "b"], "x", "c"], speed: 380, work: 350, hold: 1400, status: ["resultados comparados", "ok"] }]
   });
 
   /* ---------- Painel do contas a pagar (roda sozinho) ---------- */
