@@ -552,6 +552,32 @@ body { background: var(--bg); color: var(--ink); }
   box-shadow: 0 30px 70px -40px rgba(0, 0, 0, 0.9);
 }
 .n8n, .office, .console { --bg: #0a0d10; --panel: #15191d; --panel-2: #1b2025; --line: #262d33; }
+
+/* ===== Abertura: engrenagem que vira código (v4) ===== */
+.intro { position: relative; height: calc(100svh - 64px); min-height: 560px; display: grid; align-items: center; }
+.intro-in { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 24px; align-items: center; width: 100%; }
+.intro-txt { position: relative; z-index: 2; min-width: 0; }
+.intro-name { font-family: var(--f-display); font-size: clamp(3rem, 8vw, 6.6rem); font-weight: 800; line-height: 0.92; letter-spacing: -0.045em; margin: 14px 0 0; }
+.intro-name .ch { display: inline-block; }
+.intro-name .wm { display: inline-block; overflow: hidden; padding-bottom: 0.08em; margin-bottom: -0.08em; vertical-align: top; }
+.intro-swap { position: relative; margin-top: 22px; height: 1.6em; font-family: var(--f-mono); font-size: clamp(1rem, 1.6vw, 1.2rem); }
+.intro-swap .sw { position: absolute; left: 0; top: 0; white-space: nowrap; }
+.intro-swap .sw-a { color: var(--muted); }
+.intro-swap .sw-b { color: var(--accent); opacity: 0; }
+.intro-hint { margin-top: 38px; display: inline-flex; align-items: center; gap: 10px; font-family: var(--f-mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.intro-hint i { width: 1px; height: 34px; background: linear-gradient(var(--accent), transparent); animation: hintDrop 1.8s ease-in-out infinite; transform-origin: top; }
+@keyframes hintDrop { 0% { transform: scaleY(0); } 50% { transform: scaleY(1); } 100% { transform: scaleY(1); opacity: 0; } }
+.intro-vis { position: relative; height: min(68svh, 600px); min-width: 0; }
+.gearcode { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.code-final { position: absolute; inset: 0; margin: auto; width: fit-content; height: fit-content; padding: 22px 26px; border: 1px solid var(--line); border-radius: 14px; background: rgba(10, 13, 16, 0.72); backdrop-filter: blur(6px); font-family: var(--f-mono); font-size: clamp(11px, 1.15vw, 15px); line-height: 1.7; color: var(--ink); white-space: pre; opacity: 0; pointer-events: none; box-shadow: 0 30px 80px -30px rgba(108, 196, 255, 0.35); max-width: 100%; overflow: hidden; }
+.code-final .k { color: var(--ai); } .code-final .f { color: var(--accent); } .code-final .s { color: var(--ok); } .code-final .n { color: var(--warn); } .code-final .c { color: var(--muted); }
+@media (max-width: 860px) {
+  .intro { height: auto; min-height: calc(100svh - 64px); align-items: start; padding-top: 28px; }
+  .intro-in { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .intro-vis { height: 52svh; }
+  .intro-hint { margin-top: 18px; }
+}
+@media (prefers-reduced-motion: reduce) { .intro-swap .sw-b { opacity: 1; } .intro-swap .sw-a { opacity: 0; } .code-final { opacity: 1; } }
 </style>
 </head>
 <body>
@@ -568,6 +594,27 @@ body { background: var(--bg); color: var(--ink); }
       <a href="#sites">Sites</a>
     </nav>
   </header>
+
+  <section class="intro" id="inicio" aria-label="Apresentação">
+    <div class="intro-in">
+      <div class="intro-txt">
+        <span class="eyebrow">Automação de processos · Agentes de IA</span>
+        <h1 class="intro-name">Lorenzo<br>D'Oliveira</h1>
+        <p class="intro-swap" aria-live="polite"><span class="sw sw-a">Processo manual.</span><span class="sw sw-b">Vira código que roda sozinho.</span></p>
+        <p class="intro-hint"><span>role a página</span><i aria-hidden="true"></i></p>
+      </div>
+      <div class="intro-vis" role="img" aria-label="Engrenagem que se desmonta e vira linhas de código">
+        <canvas class="gearcode" aria-hidden="true"></canvas>
+        <pre class="code-final" aria-hidden="true"><code><span class="k">const</span> fluxo = <span class="f">automatizar</span>({
+  entrada: [<span class="s">"e-mail"</span>, <span class="s">"pdf"</span>, <span class="s">"planilha"</span>],
+  conferir: <span class="f">regras</span>(<span class="n">7</span>),
+  ia: <span class="s">"claude"</span>,
+  saida: <span class="s">"erp"</span>,
+});
+fluxo.<span class="f">rodar</span>(); <span class="c">// ✔ sem trabalho manual</span></code></pre>
+      </div>
+    </div>
+  </section>
 
   <div class="hero">
     <canvas class="hero-net" aria-hidden="true"></canvas>
@@ -599,7 +646,7 @@ body { background: var(--bg); color: var(--ink); }
     </div>
     <div>
       <span class="eyebrow">Automação de processos · Agentes de IA</span>
-      <h1>Lorenzo D'Oliveira</h1>
+      <h1>Processos que rodam sozinhos.</h1>
       <p class="lead">Automações e agentes de IA que tiram processos manuais de planilhas e e-mails.</p>
       <p class="meta">Sócio-fundador da Mentor.IA · Administração na ESPM · São Paulo</p>
       <div class="links">
@@ -1671,6 +1718,121 @@ body { background: var(--bg); color: var(--ink); }
     onView(rt, function (v) { rVis = v; rLoop(); }, 0.3);
   }
   if (G) requestAnimationFrame(function () { ScrollTrigger.refresh(); });
+})();
+</script>
+
+<script>
+/* Abertura: engrenagem de partículas que se desmonta em código conforme a rolagem */
+(function () {
+  var cv = document.querySelector(".gearcode"); if (!cv) return;
+  var reduce = false; try { reduce = matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
+  var ctx = cv.getContext("2d"), dpr = Math.min(2, window.devicePixelRatio || 1);
+  var W = 0, H = 0, P = [], prog = reduce ? 1 : 0, t0 = performance.now(), mouse = { x: -9999, y: -9999 }, live = true, raf = 0;
+  function tok(v) { return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+  var COL = { k: tok("--ai") || "#b48cff", f: tok("--accent") || "#6cc4ff", s: tok("--ok") || "#4fd18b", n: tok("--warn") || "#f0b44c", c: tok("--muted") || "#8e9ba6", p: tok("--ink") || "#e7edf1" };
+  var CODE = [
+    [["k","const"],["p"," fluxo = "],["f","automatizar"],["p","({"]],
+    [["p","  entrada: ["],["s","\"e-mail\""],["p",", "],["s","\"pdf\""],["p",", "],["s","\"planilha\""],["p","],"]],
+    [["p","  conferir: "],["f","regras"],["p","("],["n","7"],["p","),"]],
+    [["p","  ia: "],["s","\"claude\""],["p",","]],
+    [["p","  saida: "],["s","\"erp\""],["p",","]],
+    [["p","});"]],
+    [["p","fluxo."],["f","rodar"],["p","(); "],["c","// ✔ sem trabalho manual"]]
+  ];
+  function sample(draw, step, w, h, jit) {
+    var o = document.createElement("canvas"); o.width = w; o.height = h;
+    var c = o.getContext("2d", { willReadFrequently: true }); draw(c, w, h);
+    var d = c.getImageData(0, 0, w, h).data, out = [];
+    for (var y = 0; y < h; y += step) for (var x = 0; x < w; x += step) {
+      var i = (y * w + x) * 4; if (d[i + 3] > 140) out.push({ x: x + (jit ? (Math.random() - 0.5) * step * 0.9 : 0), y: y + (jit ? (Math.random() - 0.5) * step * 0.9 : 0), c: "rgb(" + d[i] + "," + d[i + 1] + "," + d[i + 2] + ")" });
+    }
+    return out;
+  }
+  function gearPath(c, cx, cy, R, r, teeth, hole) {
+    c.beginPath();
+    for (var i = 0; i < teeth * 4; i++) {
+      var a = (i / (teeth * 4)) * Math.PI * 2, rad = (i % 4 === 0 || i % 4 === 1) ? R : r;
+      var x = cx + Math.cos(a) * rad, y = cy + Math.sin(a) * rad; if (i) c.lineTo(x, y); else c.moveTo(x, y);
+    }
+    c.closePath(); c.moveTo(cx + hole, cy); c.arc(cx, cy, hole, 0, Math.PI * 2, true);
+  }
+  function build() {
+    W = cv.offsetWidth; H = cv.offsetHeight; if (!W || !H) return;
+    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    var step = W < 520 ? 4 : 5, S = Math.min(W, H);
+    var gear = sample(function (c, w, h) {
+      var cx = w / 2, cy = h / 2, R = S * 0.46;
+      var g = c.createLinearGradient(cx - R, cy - R, cx + R, cy + R); g.addColorStop(0, COL.f); g.addColorStop(1, COL.k);
+      c.fillStyle = g; gearPath(c, cx, cy, R, R * 0.82, 12, R * 0.34); c.fill("evenodd");
+      c.fillStyle = COL.f; gearPath(c, cx, cy, R * 0.26, R * 0.2, 8, R * 0.1); c.fill("evenodd");
+    }, step, Math.round(W), Math.round(H), true);
+    var fs = Math.max(10, Math.min(19, W / 30));
+    var code = sample(function (c, w, h) {
+      c.font = "600 " + fs + "px " + (getComputedStyle(document.body).getPropertyValue("--f-mono") || "monospace");
+      c.textBaseline = "top"; var lh = fs * 1.75, widest = 0;
+      CODE.forEach(function (ln) { var t = ln.map(function (x) { return x[1]; }).join(""); widest = Math.max(widest, c.measureText(t).width); });
+      var x0 = Math.max(8, (w - widest) / 2), y0 = (h - lh * CODE.length) / 2;
+      CODE.forEach(function (ln, li) { var x = x0; ln.forEach(function (tk) { c.fillStyle = COL[tk[0]]; c.fillText(tk[1], x, y0 + li * lh); x += c.measureText(tk[1]).width; }); });
+    }, Math.max(2, step - 3), Math.round(W), Math.round(H));
+    var n = Math.min(3400, Math.max(gear.length, code.length));
+    function pick(arr, i) { return arr[i < arr.length ? i : Math.floor(Math.random() * arr.length)]; }
+    gear.sort(function () { return Math.random() - 0.5; }); code.sort(function () { return Math.random() - 0.5; });
+    P = [];
+    for (var i = 0; i < n; i++) {
+      var a = pick(gear, i), b = pick(code, i);
+      P.push({ ax: a.x, ay: a.y, ac: a.c, bx: b.x, by: b.y, bc: b.c, d: Math.random(), sw: (Math.random() - 0.5) * 2, ox: 0, oy: 0 });
+    }
+    if (!raf || reduce) draw();
+  }
+  function ease(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+  function draw() {
+    raf = 0;
+    if (!reduce) raf = requestAnimationFrame(draw);
+    if (!W) return;
+    var vr = cv.getBoundingClientRect(); if (vr.bottom < -50 || vr.top > innerHeight + 50) return;
+    var now = performance.now(), time = (now - t0) / 1000;
+    ctx.clearRect(0, 0, W, H);
+    var cx = W / 2, cy = H / 2, rot = (reduce ? 0 : time * 0.25) + prog * 2.4;
+    var cr = Math.cos(rot), sr = Math.sin(rot);
+    var fade = prog > 0.92 ? 1 - (prog - 0.92) / 0.08 : 1;
+    ctx.globalAlpha = fade;
+    for (var i = 0; i < P.length; i++) {
+      var p = P[i];
+      var t = Math.min(1, Math.max(0, (prog - p.d * 0.35) / 0.6)), e = ease(t);
+      var gx = cx + (p.ax - cx) * cr - (p.ay - cy) * sr, gy = cy + (p.ax - cx) * sr + (p.ay - cy) * cr;
+      var mid = Math.sin(Math.PI * e), x = gx + (p.bx - gx) * e + p.sw * 90 * mid, y = gy + (p.by - gy) * e - 60 * mid * (0.5 + p.d);
+      var dx = x - mouse.x, dy = y - mouse.y, dd = dx * dx + dy * dy;
+      if (dd < 6400 && !reduce) { var f = (1 - dd / 6400) * 18; p.ox += (dx / Math.sqrt(dd + 1)) * f * 0.2; p.oy += (dy / Math.sqrt(dd + 1)) * f * 0.2; }
+      p.ox *= 0.9; p.oy *= 0.9;
+      ctx.fillStyle = e < 0.5 ? p.ac : p.bc;
+      var sz = 1.6 + (1 - mid) * 0.8;
+      ctx.fillRect(x + p.ox, y + p.oy, sz, sz);
+    }
+    ctx.globalAlpha = 1;
+  }
+  cv.addEventListener("pointermove", function (e) { var r = cv.getBoundingClientRect(); mouse.x = (e.clientX - r.left) * (W / r.width); mouse.y = (e.clientY - r.top) * (H / r.height); });
+  cv.addEventListener("pointerleave", function () { mouse.x = mouse.y = -9999; });
+  var to; window.addEventListener("resize", function () { clearTimeout(to); to = setTimeout(build, 200); });
+  (document.fonts && document.fonts.ready ? Promise.race([document.fonts.ready, new Promise(function (r) { setTimeout(r, 1200); })]) : Promise.resolve()).then(build);
+
+  var G = !reduce && window.gsap && window.ScrollTrigger;
+  if (!G) { prog = reduce ? 1 : 0; return; }
+  gsap.registerPlugin(ScrollTrigger);
+  /* entrada do nome */
+  var nm = document.querySelector(".intro-name");
+  nm.innerHTML = nm.innerHTML.split("<br>").map(function (part) { return '<span class="wm">' + part.split("").map(function (c) { return '<span class="ch">' + c + "</span>"; }).join("") + "</span>"; }).join("<br>");
+  gsap.from(".intro-name .ch", { yPercent: 115, rotate: 8, opacity: 0, duration: 1.2, ease: "expo.out", stagger: 0.035, delay: 0.15 });
+  gsap.from(".intro .eyebrow, .intro-swap, .intro-hint", { y: 18, opacity: 0, duration: 0.9, ease: "expo.out", stagger: 0.1, delay: 0.5 });
+  gsap.from(".gearcode", { opacity: 0, scale: 0.85, rotate: -40, duration: 1.6, ease: "expo.out", delay: 0.2 });
+  /* rolagem: engrenagem → código */
+  var st = { v: 0 };
+  var tl = gsap.timeline({ scrollTrigger: { trigger: ".intro", start: "top top", end: "+=140%", pin: true, scrub: 0.8, anticipatePin: 1 } });
+  tl.to(st, { v: 1, ease: "none", duration: 1, onUpdate: function () { prog = st.v; } }, 0)
+    .to(".intro-swap .sw-a", { opacity: 0, y: -14, duration: 0.15 }, 0.35)
+    .fromTo(".intro-swap .sw-b", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.15 }, 0.45)
+    .to(".intro-hint", { opacity: 0, duration: 0.1 }, 0.05)
+    .fromTo(".code-final", { opacity: 0, scale: 0.96 }, { opacity: 1, scale: 1, duration: 0.12 }, 0.88)
+    .to(".intro-name", { y: -10, duration: 1, ease: "none" }, 0);
 })();
 </script>
 
