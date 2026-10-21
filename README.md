@@ -76,7 +76,7 @@ cirurgia plástica, empório artesanal e estúdio de arquitetura.
 ## Estrutura deste repositório
 
 ```
-index.html            site do portfólio (GitHub Pages)
+site/                 código do site (React, GSAP e componentes do 21st.dev)
 cases/                cases detalhados das automações
 agentes/              subagentes para Claude Code
 skills/               skills para Claude
