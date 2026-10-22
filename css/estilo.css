@@ -296,13 +296,7 @@ code { font-family: var(--mono); }
 }
 .capa__linha { display: block; white-space: nowrap; }
 .capa__linha--2 { padding-left: 1.05em; }
-.capa__base {
-  display: grid;
-  grid-template-columns: 1fr minmax(320px, 500px);
-  align-items: end;
-  gap: 28px 56px;
-  margin-top: clamp(28px, 5vh, 52px);
-}
+.capa__base { margin-top: clamp(28px, 5vh, 52px); }
 .capa__frase {
   max-width: 17ch;
   font-size: clamp(24px, 2.7vw, 42px);
@@ -365,79 +359,16 @@ code { font-family: var(--mono); }
 .capa__molde text { font: 500 11px var(--mono); fill: var(--azul); letter-spacing: 0.06em; }
 .capa__sombra { position: absolute; inset: 0; z-index: 4; background: #000; opacity: 0; pointer-events: none; }
 
-/* Barra de prompt no estilo Claude Code (base: "AI Prompt Input" do 21st.dev) */
-.prompt {
-  position: relative;
-  z-index: 5;
-  display: block;
-  width: 100%;
-  justify-self: end;
-  padding: 14px 14px 12px 18px;
-  border: 1px solid var(--linha-forte);
-  border-radius: 20px;
-  background: #0d0f12;
-  box-shadow: 0 24px 60px -30px rgba(0, 0, 0, 0.9);
-  transition: border-color 0.4s;
-}
-.prompt:hover { border-color: rgba(108, 196, 255, 0.55); }
-.prompt__caixa { display: flex; align-items: flex-start; gap: 12px; }
-.prompt__sinal { flex: none; font: 500 17px/1.5 var(--mono); color: var(--azul); }
-.prompt__texto {
-  flex: 1;
-  min-width: 0;
-  min-height: 1.5em;
-  font: 400 15px/1.5 var(--mono);
-  color: var(--texto);
-}
-.prompt__cursor {
-  display: inline-block;
-  width: 8px;
-  height: 1.05em;
-  margin-left: 2px;
-  vertical-align: -0.16em;
-  background: var(--azul);
-  animation: pisca 1s steps(1) infinite;
-}
-@keyframes pisca { 50% { opacity: 0; } }
-.prompt__enviar {
-  flex: none;
-  display: grid;
-  place-items: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: var(--texto);
-  color: var(--fundo);
-  transition: background-color 0.3s, color 0.3s;
-}
-.prompt--vazio .prompt__enviar { background: var(--fundo-3); color: var(--texto-3); }
-.prompt--enviado .prompt__enviar { background: var(--azul); color: var(--escuro); }
-.prompt__rodape {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  margin-top: 12px;
-  padding-top: 10px;
-  border-top: 1px solid var(--linha);
-  font: 500 11px/1 var(--mono);
-  letter-spacing: 0.06em;
-  color: var(--texto-3);
-}
-.prompt__estado { display: inline-flex; align-items: center; gap: 6px; }
-.prompt__giro { display: inline-block; width: 1em; color: #d97757; text-align: center; }
-
 /* Fallback: se o JavaScript não montar a capa, ela aparece sozinha */
 .anima .capa__sobre,
 .anima .capa__nome,
 .anima .capa__frase,
-.anima .prompt,
 .anima .capa__rodape,
 .anima .topo { animation: reserva 0.6s 1.8s both; }
 @keyframes reserva { from { opacity: 0; } to { opacity: 1; } }
 .capa-js .capa__sobre,
 .capa-js .capa__nome,
 .capa-js .capa__frase,
-.capa-js .prompt,
 .capa-js .capa__rodape,
 .capa-js .topo { animation: none; }
 
@@ -2125,8 +2056,6 @@ html:not(.anima) .sites__progresso { display: none; }
 @media (max-width: 899px) {
   .capa__palco { padding-top: 92px; }
   .capa__linha--2 { padding-left: 0.5em; }
-  .capa__base { grid-template-columns: 1fr; }
-  .prompt { max-width: 560px; justify-self: start; }
   .capa__rolar { display: none; }
 
   .historia { border-radius: 26px 26px 0 0; }
@@ -2199,8 +2128,6 @@ html:not(.anima) .sites__progresso { display: none; }
   .capa__nome { font-size: 16.4vw; }
   .capa__linha--2 { padding-left: 0; }
   .capa__frase { font-size: 25px; }
-  .prompt { padding: 12px 12px 10px 14px; border-radius: 16px; }
-  .prompt__texto { font-size: 13.5px; }
   .capa__meta { gap: 6px 16px; font-size: 11px; }
   .capa__meta li { gap: 16px; }
   .capa__meta li + li::before { margin-left: -10px; }
@@ -2240,11 +2167,8 @@ html:not(.anima) .sites__progresso { display: none; }
   .capa { min-height: 0; }
   .capa__palco { padding: 58px var(--margem) 14px; }
   .capa__nome { margin-top: 10px; font-size: min(10.5vw, 16svh); }
-  .capa__base { grid-template-columns: 1fr 1fr; margin-top: 16px; gap: 20px; }
+  .capa__base { margin-top: 16px; }
   .capa__frase { font-size: 20px; }
-  .prompt { padding: 10px 12px 8px; }
-  .prompt__texto { font-size: 12.5px; }
-  .prompt__rodape { margin-top: 8px; padding-top: 6px; }
   .capa__rodape { margin-top: 12px; }
   .capa__meta { font-size: 10.5px; }
 
@@ -2280,5 +2204,5 @@ html:not(.anima) .sites__progresso { display: none; }
 
 /* ---------- Movimento reduzido ---------- */
 @media (prefers-reduced-motion: reduce) {
-  .capa__rolar i::after, .prompt__cursor { animation: none; }
+  .capa__rolar i::after { animation: none; }
 }

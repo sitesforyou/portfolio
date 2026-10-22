@@ -11,10 +11,10 @@
   const tem = (nome) => Boolean(window[nome]);
   const limitar = (valor, min = 0, max = 1) => Math.min(max, Math.max(min, valor));
   const SIMBOLOS = '01<>/{}#_=+';
-  // Cenas presas na rolagem só quando a tela tem altura para isso. Em tela baixa (celular
-  // deitado), a mesma animação acompanha a rolagem sem prender.
-  const ALTA = '(min-height: 561px)';
-  const BAIXA = '(max-height: 560px)';
+  // Cenas presas na rolagem: no computador a partir de 440px de altura (janela baixa também
+  // prende); no celular a partir de 561px. Abaixo disso a animação acompanha a rolagem sem prender.
+  const ALTA = '(min-width: 900px) and (min-height: 440px), (min-height: 561px)';
+  const BAIXA = '(max-height: 439px), (max-width: 899px) and (max-height: 560px)';
 
   // Cada bloco roda isolado: se um quebrar, o resto da página continua.
   function rodar(nome, fn) {
@@ -225,26 +225,12 @@
   }
 
   /* =========================================================================
-     CAPA: um pedido se digita na barra de prompt e, ao enviar, a página monta
-     o resto da capa (moldes em linha que viram o conteúdo de verdade).
+     CAPA: moldes em linha se desenham onde cada parte vai ficar e o conteúdo
+     de verdade sobe dentro deles.
      ========================================================================= */
   function capa() {
     const palco = $('.capa__palco');
-    const prompt = $('.prompt');
-    const digitado = $('.prompt__digitado');
-    const estado = $('.prompt__estado-texto');
-    const giro = $('.prompt__giro');
-    const enviar = $('.prompt__enviar');
     const molde = $('.capa__molde');
-    const pedido = digitado.textContent;
-    // Placeholder que gira depois de pronta (base: "AI Prompt Input" do 21st.dev)
-    const SUGESTOES = [
-      'automatize o contas a pagar',
-      'monte um time de agentes de marketing',
-      'atualize o relatório às 02:00',
-      'lance os boletos no ERP com 8 travas',
-      'crie um software sob medida',
-    ];
     if (reduzir) return;
 
     // Rolagem: a capa vira um cartão que recua enquanto a história sobe por cima
@@ -293,59 +279,19 @@
     const retangulos = $$('rect', molde);
     const rotulos = $$('text', molde);
 
-    // Indicador de "pensando" do Claude Code
-    const GIROS = ['·', '✢', '✳', '✶', '✻', '✽', '✻', '✶', '✳', '✢'];
-    let giroAtivo = null;
-    const girar = (ligar) => {
-      clearInterval(giroAtivo);
-      if (!ligar) return;
-      let i = 0;
-      giroAtivo = setInterval(() => { giro.textContent = GIROS[i++ % GIROS.length]; }, 110);
-    };
-
-    // Estado inicial: só a barra de prompt, no meio da tela
-    const caixa = prompt.getBoundingClientRect();
-    const escala = window.innerWidth >= 900 ? 1.12 : 1;
-    const dx = window.innerWidth / 2 - (caixa.left + caixa.width / 2);
-    const dy = window.innerHeight / 2 - (caixa.top + caixa.height / 2);
+    // Estado inicial: tudo escondido; os moldes se desenham e o conteúdo sobe dentro deles
     const letras = nome.map((s) => s.chars);
     gsap.set(letras.flat(), { yPercent: 118 });
     gsap.set(frase.words, { yPercent: 110 });
     gsap.set(['.capa__sobre', '.capa__meta li', '.capa__rolar', '.topo > *'], { autoAlpha: 0, y: 16 });
-    gsap.set(prompt, { x: dx, y: dy, scale: escala });
     gsap.set(retangulos, { drawSVG: '0%' });
     gsap.set(rotulos, { autoAlpha: 0 });
-    prompt.classList.add('prompt--vazio');
-    digitado.textContent = '';
-    estado.textContent = 'Claude Code';
 
-    const contador = { n: 0 };
-    const tDigitar = pedido.length * 0.026;
-    const tEnviar = 0.55 + tDigitar + 0.25;
-    const tMontar = tEnviar + 0.55;
+    const tMontar = 0.55;
     const entrada = gsap.timeline({ delay: 0.25, defaults: { ease: EASE } });
     entrada
-      .fromTo(prompt, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.6 }, 0)
-      .fromTo(prompt, { y: dy + 26 }, { y: dy, duration: 0.9 }, 0)
-      .to(contador, {
-        n: pedido.length,
-        duration: tDigitar,
-        ease: 'none',
-        onUpdate: () => {
-          digitado.textContent = pedido.slice(0, Math.round(contador.n));
-          prompt.classList.toggle('prompt--vazio', contador.n < 1);
-        },
-      }, 0.55)
-      .to(enviar, { scale: 0.78, duration: 0.12, ease: 'power2.in' }, tEnviar - 0.1)
-      .to(enviar, { scale: 1, duration: 0.6, ease: 'back.out(3)' }, tEnviar + 0.02)
-      .add(() => {
-        prompt.classList.add('prompt--enviado');
-        estado.textContent = 'Montando a capa…';
-        girar(true);
-      }, tEnviar)
-      .to(retangulos, { drawSVG: '100%', duration: 0.75, stagger: 0.07, ease: 'power2.inOut' }, tEnviar + 0.1)
-      .to(rotulos, { autoAlpha: 1, duration: 0.25, stagger: 0.07 }, tEnviar + 0.15)
-      .to(prompt, { x: 0, y: 0, scale: 1, duration: 1.4 }, tMontar)
+      .to(retangulos, { drawSVG: '100%', duration: 0.75, stagger: 0.07, ease: 'power2.inOut' }, 0.1)
+      .to(rotulos, { autoAlpha: 1, duration: 0.25, stagger: 0.07 }, 0.15)
       .to('.capa__sobre', { autoAlpha: 1, y: 0, duration: 0.9 }, tMontar + 0.1)
       .to(letras[0], { yPercent: 0, duration: 1.2, stagger: 0.035 }, tMontar + 0.15)
       .to(letras[1], { yPercent: 0, duration: 1.2, stagger: 0.035 }, tMontar + 0.3)
@@ -355,54 +301,15 @@
       .to(retangulos, { autoAlpha: 0, duration: 0.6, stagger: 0.05, ease: 'power1.out' }, tMontar + 1.0)
       .to(rotulos, { autoAlpha: 0, duration: 0.4 }, tMontar + 1.0)
       .add(() => {
-        girar(false);
-        giro.textContent = '✓';
-        estado.textContent = 'Capa pronta';
-        prompt.classList.remove('prompt--enviado');
-      }, tMontar + 1.3)
-      .add(() => {
         // Desfaz as divisões: o texto volta a ter o espaçamento original das letras
         nome.forEach((s) => s.revert());
         frase.revert();
         gsap.set(linhas, { clearProps: 'overflow,paddingTop,marginTop,paddingBottom,marginBottom' });
         molde.remove();
-      }, tMontar + 2.2)
-      .add(sugestoes, tMontar + 3.4);
+      }, tMontar + 2.2);
 
     // Se a página abriu no meio (voltou de outra página), a capa já aparece pronta
     if (window.scrollY > 40) entrada.progress(1);
-
-    function sugestoes() {
-      giro.textContent = '✻';
-      estado.textContent = 'Feito com Claude Code';
-      const lista = [...SUGESTOES, pedido];
-      const ciclo = gsap.timeline({ repeat: -1 });
-      lista.forEach((texto, i) => {
-        const antes = i === 0 ? pedido : lista[i - 1];
-        const apagar = { n: antes.length };
-        const escrever = { n: 0 };
-        ciclo
-          .to(apagar, {
-            n: 0,
-            duration: Math.min(0.7, antes.length * 0.014),
-            ease: 'none',
-            delay: 2.4,
-            onUpdate: () => { digitado.textContent = antes.slice(0, Math.round(apagar.n)); },
-          })
-          .to(escrever, {
-            n: texto.length,
-            duration: texto.length * 0.034,
-            ease: 'none',
-            onUpdate: () => { digitado.textContent = texto.slice(0, Math.round(escrever.n)); },
-          }, '+=0.3');
-      });
-      // Só gira com a capa na tela
-      ScrollTrigger.create({
-        start: 0,
-        end: () => window.innerHeight,
-        onToggle: (self) => (self.isActive ? ciclo.resume() : ciclo.pause()),
-      });
-    }
   }
 
   /* =========================================================================
