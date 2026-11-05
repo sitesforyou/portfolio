@@ -3,7 +3,8 @@
   'use strict';
 
   const raiz = document.documentElement;
-  const reduzir = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // ?animar no endereço força as animações mesmo com o "Efeitos de animação" do Windows desligado
+  const reduzir = window.matchMedia('(prefers-reduced-motion: reduce)').matches && !/[?&]animar\b/.test(location.search);
   const toque = window.matchMedia('(hover: none), (pointer: coarse)').matches;
   const NS = 'http://www.w3.org/2000/svg';
   const $ = (seletor, base = document) => base.querySelector(seletor);
@@ -74,7 +75,7 @@
     });
   }
 
-  // Relógio da madrugada: cada dígito tem a sequência 23:59 → 00:00 → 01:00 → 02:00
+  // Relógio do dashboard: cada dígito tem a sequência 09:27 → 09:28 → 09:29 → 09:30 (data-seq no HTML)
   function montarRelogio() {
     $$('.relogio__dig').forEach((digito) => {
       const sequencia = digito.dataset.seq.split('');
@@ -153,7 +154,7 @@
     grupo.setAttribute('clip-path', 'url(#grafico-corte)');
     svg.insertBefore(grupo, linhaB);
     grupo.append(linhaB, linhaA);
-    [[b, 'var(--texto)'], [a, 'var(--azul)']].forEach(([serieY, cor]) => {
+    [[b, 'var(--texto)'], [a, 'var(--laranja)']].forEach(([serieY, cor]) => {
       const ponta = document.createElementNS(NS, 'circle');
       ponta.setAttribute('class', 'grafico__ponta');
       ponta.setAttribute('cx', L);
@@ -225,12 +226,11 @@
   }
 
   /* =========================================================================
-     CAPA: moldes em linha se desenham onde cada parte vai ficar e o conteúdo
-     de verdade sobe dentro deles.
+     CAPA: o nome sobe letra por letra, a frase palavra por palavra e o resto
+     aparece em seguida (sem moldes nem quadrados em volta: o Lorenzo tirou).
      ========================================================================= */
   function capa() {
     const palco = $('.capa__palco');
-    const molde = $('.capa__molde');
     if (reduzir) return;
 
     // Rolagem: a capa vira um cartão que recua enquanto a história sobe por cima
@@ -249,64 +249,26 @@
     // cada linha do nome vira a "máscara" das próprias letras durante a entrada
     gsap.set(linhas, { overflow: 'hidden', paddingTop: '0.1em', marginTop: '-0.1em', paddingBottom: '0.08em', marginBottom: '-0.08em' });
 
-    // Moldes: retângulos em linha onde cada parte da capa vai aparecer
-    const rp = palco.getBoundingClientRect();
-    molde.setAttribute('viewBox', `0 0 ${rp.width} ${rp.height}`);
-    let rotuloAnterior = '';
-    const faixa = document.createRange();
-    $$('[data-molde]', palco).forEach((el) => {
-      faixa.selectNodeContents(el);
-      const r = faixa.getBoundingClientRect();
-      const x = r.left - rp.left - 10;
-      const y = r.top - rp.top - 6;
-      const rect = document.createElementNS(NS, 'rect');
-      rect.setAttribute('x', x.toFixed(1));
-      rect.setAttribute('y', y.toFixed(1));
-      rect.setAttribute('width', (r.width + 20).toFixed(1));
-      rect.setAttribute('height', (r.height + 12).toFixed(1));
-      rect.setAttribute('rx', 8);
-      molde.appendChild(rect);
-      const rotulo = el.dataset.molde;
-      if (rotulo && rotulo !== rotuloAnterior) {
-        const texto = document.createElementNS(NS, 'text');
-        texto.setAttribute('x', (x + 2).toFixed(1));
-        texto.setAttribute('y', (y - 9).toFixed(1));
-        texto.textContent = `<${rotulo}>`;
-        molde.appendChild(texto);
-      }
-      rotuloAnterior = rotulo;
-    });
-    const retangulos = $$('rect', molde);
-    const rotulos = $$('text', molde);
-
-    // Estado inicial: tudo escondido; os moldes se desenham e o conteúdo sobe dentro deles
+    // Estado inicial: tudo escondido; o nome sobe de dentro da própria linha
     const letras = nome.map((s) => s.chars);
     gsap.set(letras.flat(), { yPercent: 118 });
     gsap.set(frase.words, { yPercent: 110 });
     gsap.set(['.capa__sobre', '.capa__meta li', '.capa__rolar', '.topo > *'], { autoAlpha: 0, y: 16 });
-    gsap.set(retangulos, { drawSVG: '0%' });
-    gsap.set(rotulos, { autoAlpha: 0 });
 
-    const tMontar = 0.55;
-    const entrada = gsap.timeline({ delay: 0.25, defaults: { ease: EASE } });
+    const entrada = gsap.timeline({ delay: 0.2, defaults: { ease: EASE } });
     entrada
-      .to(retangulos, { drawSVG: '100%', duration: 0.75, stagger: 0.07, ease: 'power2.inOut' }, 0.1)
-      .to(rotulos, { autoAlpha: 1, duration: 0.25, stagger: 0.07 }, 0.15)
-      .to('.capa__sobre', { autoAlpha: 1, y: 0, duration: 0.9 }, tMontar + 0.1)
-      .to(letras[0], { yPercent: 0, duration: 1.2, stagger: 0.035 }, tMontar + 0.15)
-      .to(letras[1], { yPercent: 0, duration: 1.2, stagger: 0.035 }, tMontar + 0.3)
-      .to(frase.words, { yPercent: 0, duration: 1, stagger: 0.04 }, tMontar + 0.55)
-      .to(['.capa__meta li', '.capa__rolar'], { autoAlpha: 1, y: 0, duration: 0.8, stagger: 0.06 }, tMontar + 0.75)
-      .to('.topo > *', { autoAlpha: 1, y: 0, duration: 0.8, stagger: 0.08 }, tMontar + 0.6)
-      .to(retangulos, { autoAlpha: 0, duration: 0.6, stagger: 0.05, ease: 'power1.out' }, tMontar + 1.0)
-      .to(rotulos, { autoAlpha: 0, duration: 0.4 }, tMontar + 1.0)
+      .to('.capa__sobre', { autoAlpha: 1, y: 0, duration: 0.9 }, 0)
+      .to(letras[0], { yPercent: 0, duration: 1.2, stagger: 0.035 }, 0.1)
+      .to(letras[1], { yPercent: 0, duration: 1.2, stagger: 0.035 }, 0.25)
+      .to(frase.words, { yPercent: 0, duration: 1, stagger: 0.04 }, 0.5)
+      .to('.topo > *', { autoAlpha: 1, y: 0, duration: 0.8, stagger: 0.08 }, 0.55)
+      .to(['.capa__meta li', '.capa__rolar'], { autoAlpha: 1, y: 0, duration: 0.8, stagger: 0.06 }, 0.7)
       .add(() => {
         // Desfaz as divisões: o texto volta a ter o espaçamento original das letras
         nome.forEach((s) => s.revert());
         frase.revert();
         gsap.set(linhas, { clearProps: 'overflow,paddingTop,marginTop,paddingBottom,marginBottom' });
-        molde.remove();
-      }, tMontar + 2.2);
+      }, 2.2);
 
     // Se a página abriu no meio (voltou de outra página), a capa já aparece pronta
     if (window.scrollY > 40) entrada.progress(1);
@@ -364,7 +326,7 @@
     tl.fromTo('.historia__barra i', { scaleX: 0 }, { scaleX: 1, duration: fim }, 0)
       .fromTo(arte, { rotation: 0 }, { rotation: 540, duration: 2.6, immediateRender: false }, 0)
       // violeta enquanto fala de IA, azul quando vira automação
-      .to([forma, eixo], { stroke: '#6cc4ff', duration: 0.3 }, PASSO - 0.1)
+      .to([forma, eixo], { stroke: '#fb923c', duration: 0.3 }, PASSO - 0.1)
       .set(forma, { strokeDasharray: 'none' }, 2.1)
       .to(eixo, { scale: 0, opacity: 0, svgOrigin: '300 300', duration: 0.4, ease: 'power2.in' }, 2.2)
       .fromTo(arte, { rotation: 540 }, { rotation: 720, duration: 0.8, ease: 'power2.inOut', immediateRender: false }, 2.6)
@@ -396,62 +358,30 @@
   }
 
   /* =========================================================================
-     FERRAMENTAS: três anéis de logos girando em volta da marca, cada um num
-     sentido; a rolagem dá um empurrão no giro e os logos ficam sempre de pé
-     (base: "Orbiting Circles" do 21st.dev).
+     FERRAMENTAS: a estante entra linha por linha; em cada linha o nome da área
+     chega primeiro e os logos sobem um a um. Nada fica girando.
      ========================================================================= */
   function ferramentas() {
     if (reduzir) return;
-    const palco = $('.orbita__palco');
-    if (!palco) return;
-    const aneis = $$('.orbita__anel', palco).map((anel) => ({
-      anel,
-      pecas: $$('.orbita__peca', anel),
-      // graus por segundo; o de dentro gira mais rápido e cada anel vai num sentido
-      velocidade: { 1: 9, 2: -6, 3: 4 }[anel.dataset.anel] || 5,
-      angulo: 0,
-    }));
-
-    // Entrada: os anéis abrem do centro e os logos chegam um a um
-    gsap.set(aneis.map((a) => a.anel), { scale: 0.4, opacity: 0 });
-    gsap.set($$('.orbita__logo, .orbita__nome', palco), { scale: 0, opacity: 0 });
-    gsap.set('.orbita__centro', { scale: 0.6, opacity: 0 });
-    ScrollTrigger.create({
-      trigger: palco,
-      start: 'top 78%',
-      once: true,
-      onEnter: () => {
-        gsap.timeline({ defaults: { ease: EASE } })
-          .to('.orbita__centro', { scale: 1, opacity: 1, duration: 1 }, 0)
-          .to(aneis.slice().reverse().map((a) => a.anel), { scale: 1, opacity: 1, duration: 1.4, stagger: 0.12 }, 0.1)
-          .to($$('.orbita__logo', palco), { scale: 1, opacity: 1, duration: 0.8, ease: 'back.out(2)', stagger: { each: 0.035, from: 'random' } }, 0.5)
-          .to($$('.orbita__nome', palco), { scale: 1, opacity: 1, duration: 0.6, stagger: 0.02 }, 0.9);
-      },
-    });
-
-    let visivel = false;
-    let empurrao = 0;
-    let parado = false;
-    ScrollTrigger.create({
-      trigger: palco,
-      start: 'top bottom',
-      end: 'bottom top',
-      onToggle: (self) => { visivel = self.isActive; },
-      onUpdate: (self) => { empurrao = Math.max(-240, Math.min(240, self.getVelocity() * 0.05)); },
-    });
-    // Com o mouse em cima de um logo, a órbita para para a pessoa ler
-    if (!toque) {
-      palco.addEventListener('pointerover', (e) => { if (e.target.closest('.orbita__peca')) parado = true; });
-      palco.addEventListener('pointerout', (e) => { if (e.target.closest('.orbita__peca')) parado = false; });
-    }
-    gsap.ticker.add((tempo, delta) => {
-      if (!visivel) return;
-      empurrao *= 0.92;
-      const passo = parado ? 0 : delta / 1000;
-      aneis.forEach((a) => {
-        a.angulo += a.velocidade * passo + Math.sign(a.velocidade) * empurrao * passo * 0.6;
-        gsap.set(a.anel, { rotation: a.angulo });
-        gsap.set(a.pecas, { rotation: -a.angulo });
+    const linhas = $$('.estante__linha');
+    linhas.forEach((linha) => {
+      const grupo = $('.estante__grupo', linha);
+      const itens = $$('.estante__item', linha);
+      const logos = $$('.estante__logo', linha);
+      gsap.set(grupo, { autoAlpha: 0, x: -18 });
+      gsap.set(itens, { autoAlpha: 0, y: 28 });
+      gsap.set(logos, { scale: 0.6 });
+      ScrollTrigger.create({
+        trigger: linha,
+        start: 'top 88%',
+        once: true,
+        onEnter: () => {
+          // clearProps devolve o hover do CSS (o transform em linha do GSAP venceria o :hover)
+          gsap.timeline({ defaults: { ease: EASE } })
+            .to(grupo, { autoAlpha: 1, x: 0, duration: 0.9, clearProps: 'transform' }, 0)
+            .to(itens, { autoAlpha: 1, y: 0, duration: 1, stagger: 0.07, clearProps: 'transform' }, 0.05)
+            .to(logos, { scale: 1, duration: 0.9, ease: 'back.out(2.2)', stagger: 0.07, clearProps: 'transform' }, 0.12);
+        },
       });
     });
   }
@@ -531,15 +461,6 @@
         }),
       });
     });
-
-    // As conferências se marcam uma a uma
-    const lista = $('.conferencias__lista', secao);
-    const itens = $$('li', lista);
-    const marcas = $$('path', lista);
-    const tl = gsap.timeline({ scrollTrigger: { trigger: lista, start: 'top 82%' } });
-    tl.fromTo(itens, { '--traco': 0 }, { '--traco': 1, duration: 1, stagger: 0.1, ease: 'expo.inOut' }, 0)
-      .from(itens, { x: -14, opacity: 0, duration: 0.8, stagger: 0.1, ease: EASE }, 0.1);
-    if (tem('DrawSVGPlugin')) tl.fromTo(marcas, { drawSVG: '0%' }, { drawSVG: '100%', duration: 0.5, stagger: 0.1, ease: 'power2.out' }, 0.35);
   }
 
   /* =========================================================================
@@ -597,7 +518,7 @@
   }
 
   /* =========================================================================
-     ATUALIZAÇÃO DIÁRIA: o relógio rola até 02:00 e o fluxo roda em três cenários.
+     DASHBOARD DE VAREJO: o relógio chega às 09:30 e o fluxo roda em três cenários.
      ========================================================================= */
   function madrugada() {
     const secao = $('#madrugada');
@@ -609,9 +530,9 @@
     const avisoSinal = $('.aviso__sinal', aviso);
     const botoes = $$('.cenario', secao);
     const CENARIOS = {
-      novo: { ate: 4, falha: -1, sinal: '✓', texto: 'Arquivo novo: a planilha é atualizada, conferida, e o gestor recebe o resumo.' },
-      sem: { ate: 0, falha: 0, sinal: '!', texto: 'Sem arquivo novo: avisa e não mexe na planilha.' },
-      erro: { ate: 2, falha: 2, sinal: '!', texto: 'Erro na gravação: a conferência pega e o fluxo avisa.' },
+      normal: { ate: 4, falha: -1, sinal: '✓', texto: 'Tudo pronto e os links vão por e-mail.' },
+      erp: { ate: 1, falha: 1, sinal: '!', texto: 'ERP com erro: tenta de novo sozinho.' },
+      catalogo: { ate: 2, falha: 2, sinal: '!', texto: 'Catálogo atrasado: espera e tenta de novo.' },
     };
 
     function posicionar(cenario, animar) {
@@ -658,11 +579,11 @@
     }
 
     botoes.forEach((botao) => botao.addEventListener('click', () => aplicar(botao.dataset.cenario, true)));
-    aplicar('novo', false);
+    aplicar('normal', false);
     window.addEventListener('resize', () => posicionar(CENARIOS[trilha.dataset.cenario], false));
     if (reduzir) return;
 
-    // 23:59 → 00:00 → 01:00 → 02:00, cada virada com o seu "tique"
+    // 09:27 → 09:28 → 09:29 → 09:30, cada virada com o seu "tique"
     const passos = colunas[0].children.length - 1;
     const relogio = { p: 0 };
     const virar = gsap.parseEase('power3.inOut');
@@ -1410,8 +1331,8 @@
         const texto = $('.marco__texto', parada);
         const chips = $$('.marco__chips li', parada);
         const contornos = $$('.marco__contorno rect', parada);
-        const cor = ia ? '#b48cff' : '#6cc4ff';
-        const halo = ia ? 'rgba(180, 140, 255, 0.16)' : 'rgba(108, 196, 255, 0.16)';
+        const cor = ia ? '#b48cff' : '#fb923c';
+        const halo = ia ? 'rgba(180, 140, 255, 0.16)' : 'rgba(251, 146, 60, 0.16)';
 
         gsap.set(cartao, {
           opacity: 0.42,

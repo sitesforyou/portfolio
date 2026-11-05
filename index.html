@@ -17,14 +17,14 @@
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Capa do portfólio de Lorenzo D'Oliveira: agentes, automações e software sob medida">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2307080a'/%3E%3Ctext x='30' y='42' text-anchor='middle' font-family='Arial' font-weight='700' font-size='27' fill='%23f1f3f5'%3ELD%3C/text%3E%3Crect x='47' y='37' width='6' height='6' rx='1.5' fill='%236cc4ff'/%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2307080a'/%3E%3Ctext x='30' y='42' text-anchor='middle' font-family='Arial' font-weight='700' font-size='27' fill='%23f1f3f5'%3ELD%3C/text%3E%3Crect x='47' y='37' width='6' height='6' rx='1.5' fill='%23fb923c'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400..600&family=Instrument+Serif:ital@0;1&display=swap">
   <link rel="stylesheet" href="css/estilo.css">
   <script>
     // Antes de pintar: com movimento liberado, a capa começa "vazia" e o JavaScript a monta.
-    try { if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('anima'); } catch (e) {}
+    try { if (!matchMedia('(prefers-reduced-motion: reduce)').matches || /[?&]animar\b/.test(location.search)) document.documentElement.classList.add('anima'); } catch (e) {}
   </script>
 </head>
 <body>
@@ -51,17 +51,17 @@
     <section class="capa" id="inicio" aria-label="Apresentação">
       <div class="capa__palco">
         <div class="capa__conteudo">
-          <p class="capa__sobre" data-molde="p.sobre">Automação · Agentes de IA · Software sob medida</p>
+          <p class="capa__sobre">Automação · Agentes de IA · Software sob medida</p>
           <h1 class="capa__nome" aria-label="Lorenzo D'Oliveira">
-            <span class="capa__linha" data-molde="h1" aria-hidden="true">Lorenzo</span>
-            <span class="capa__linha capa__linha--2" data-molde="h1" aria-hidden="true">D'Oliveira</span>
+            <span class="capa__linha" aria-hidden="true">Lorenzo</span>
+            <span class="capa__linha capa__linha--2" aria-hidden="true">D'Oliveira</span>
           </h1>
           <div class="capa__base">
-            <p class="capa__frase" data-molde="p.frase">Eu crio <em class="ia">agentes</em>, automações e software sob medida.</p>
+            <p class="capa__frase">Eu crio <em class="ia">agentes</em>, automações e software sob medida.</p>
           </div>
         </div>
         <div class="capa__rodape">
-          <ul class="capa__meta" data-molde="ul.meta">
+          <ul class="capa__meta">
             <li>Trabalho no Grupo Aste</li>
             <li>Sócio-fundador da Mentor.IA</li>
             <li>Administração na ESPM</li>
@@ -69,7 +69,6 @@
           </ul>
           <span class="capa__rolar" aria-hidden="true">Role <i></i></span>
         </div>
-        <svg class="capa__molde" aria-hidden="true"></svg>
         <div class="capa__sombra" aria-hidden="true"></div>
       </div>
     </section>
@@ -139,7 +138,7 @@
           <li class="setor">
             <span class="setor__icone" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20h16M7 16v-5M12 16V7M17 16v-8"/></svg></span>
             <h3 class="setor__nome">Relatórios</h3>
-            <p class="setor__texto">Planilha mestre toda madrugada.</p>
+            <p class="setor__texto">Dash e apresentação todo dia.</p>
           </li>
         </ul>
       </div>
@@ -147,52 +146,46 @@
 
     <!-- ================= FERRAMENTAS ================= -->
     <section class="ferramentas" id="ferramentas" aria-labelledby="ferramentas-titulo">
-      <div class="conteiner ferramentas__grade">
+      <div class="conteiner">
         <div class="ferramentas__cabeca">
           <p class="rotulo">Ferramentas</p>
           <h2 class="titulo" id="ferramentas-titulo" data-linhas>As ferramentas do <em>dia a dia</em>.</h2>
-          <p class="texto">Da automação sem código ao software completo: escolho a ferramenta pelo problema, não o contrário.</p>
-          <ul class="orbita__legenda" aria-hidden="true">
-            <li><i data-anel="1"></i>IA e automação</li>
-            <li><i data-anel="2"></i>Software</li>
-            <li><i data-anel="3"></i>Microsoft, nuvem e o resto</li>
-          </ul>
         </div>
 
-        <div class="orbita">
-          <ul class="sr">
-            <li>IA e automação: Claude API, Claude Code, n8n, Power Automate</li>
-            <li>Software: Next.js, React, TypeScript, Supabase, PostgreSQL, Python, Playwright</li>
-            <li>Microsoft, nuvem e o resto: PowerShell, Microsoft 365, Outlook, Excel, Office Scripts, Azure, GSAP, Three.js, Freqtrade</li>
-          </ul>
-          <div class="orbita__palco" aria-hidden="true">
-            <div class="orbita__anel" data-anel="3">
-              <span class="orbita__item" style="--i:0"><span class="orbita__peca"><span class="orbita__logo"><img src="assets/logos/powershell.svg" alt="" width="40" height="40"></span><span class="orbita__nome">PowerShell</span></span></span>
-              <span class="orbita__item" style="--i:1"><span class="orbita__peca"><span class="orbita__logo orbita__logo--sigla">365</span><span class="orbita__nome">Microsoft 365</span></span></span>
-              <span class="orbita__item" style="--i:2"><span class="orbita__peca"><span class="orbita__logo"><img src="assets/logos/outlook.svg" alt="" width="40" height="40"></span><span class="orbita__nome">Outlook</span></span></span>
-              <span class="orbita__item" style="--i:3"><span class="orbita__peca"><span class="orbita__logo"><img src="assets/logos/excel.svg" alt="" width="40" height="40"></span><span class="orbita__nome">Excel</span></span></span>
-              <span class="orbita__item" style="--i:4"><span class="orbita__peca"><span class="orbita__logo orbita__logo--sigla">OS</span><span class="orbita__nome">Office Scripts</span></span></span>
-              <span class="orbita__item" style="--i:5"><span class="orbita__peca"><span class="orbita__logo"><img src="assets/logos/azure.svg" alt="" width="40" height="40"></span><span class="orbita__nome">Azure</span></span></span>
-              <span class="orbita__item" style="--i:6"><span class="orbita__peca"><span class="orbita__logo orbita__logo--sigla">GS</span><span class="orbita__nome">GSAP</span></span></span>
-              <span class="orbita__item" style="--i:7"><span class="orbita__peca"><span class="orbita__logo"><img src="assets/logos/threejs.svg" alt="" width="40" height="40"></span><span class="orbita__nome">Three.js</span></span></span>
-              <span class="orbita__item" style="--i:8"><span class="orbita__peca"><span class="orbita__logo orbita__logo--sigla">FT</span><span class="orbita__nome">Freqtrade</span></span></span>
-            </div>
-            <div class="orbita__anel" data-anel="2">
-              <span class="orbita__item" style="--i:0"><span class="orbita__peca"><span class="orbita__logo"><img src="assets/logos/nextjs.svg" alt="" width="40" height="40"></span><span class="orbita__nome">Next.js</span></span></span>
-              <span class="orbita__item" style="--i:1"><span class="orbita__peca"><span class="orbita__logo"><img src="assets/logos/react.svg" alt="" width="40" height="40"></span><span class="orbita__nome">React</span></span></span>
-              <span class="orbita__item" style="--i:2"><span class="orbita__peca"><span class="orbita__logo"><img src="assets/logos/typescript.svg" alt="" width="40" height="40"></span><span class="orbita__nome">TypeScript</span></span></span>
-              <span class="orbita__item" style="--i:3"><span class="orbita__peca"><span class="orbita__logo"><img src="assets/logos/supabase.svg" alt="" width="40" height="40"></span><span class="orbita__nome">Supabase</span></span></span>
-              <span class="orbita__item" style="--i:4"><span class="orbita__peca"><span class="orbita__logo"><img src="assets/logos/postgresql.svg" alt="" width="40" height="40"></span><span class="orbita__nome">PostgreSQL</span></span></span>
-              <span class="orbita__item" style="--i:5"><span class="orbita__peca"><span class="orbita__logo"><img src="assets/logos/python.svg" alt="" width="40" height="40"></span><span class="orbita__nome">Python</span></span></span>
-              <span class="orbita__item" style="--i:6"><span class="orbita__peca"><span class="orbita__logo"><img src="assets/logos/playwright.svg" alt="" width="40" height="40"></span><span class="orbita__nome">Playwright</span></span></span>
-            </div>
-            <div class="orbita__anel" data-anel="1">
-              <span class="orbita__item" style="--i:0"><span class="orbita__peca"><span class="orbita__logo"><img src="assets/logos/claude.svg" alt="" width="40" height="40"></span><span class="orbita__nome">Claude API</span></span></span>
-              <span class="orbita__item" style="--i:1"><span class="orbita__peca"><span class="orbita__logo orbita__logo--sigla orbita__logo--codigo">&gt;_</span><span class="orbita__nome">Claude Code</span></span></span>
-              <span class="orbita__item" style="--i:2"><span class="orbita__peca"><span class="orbita__logo"><img src="assets/logos/n8n.svg" alt="" width="40" height="40"></span><span class="orbita__nome">n8n</span></span></span>
-              <span class="orbita__item" style="--i:3"><span class="orbita__peca"><span class="orbita__logo orbita__logo--sigla">PA</span><span class="orbita__nome">Power Automate</span></span></span>
-            </div>
-            <div class="orbita__centro"><span class="orbita__marca">LD<span>.</span></span><span class="orbita__sub">20 ferramentas</span></div>
+        <!-- Uma linha por área, um logo por casa -->
+        <div class="estante">
+          <div class="estante__linha" data-grupo="ia">
+            <h3 class="estante__grupo">IA e automação</h3>
+            <ul class="estante__lista">
+              <li class="estante__item"><span class="estante__logo"><img src="assets/logos/claude.svg" alt="" width="40" height="40"></span><span class="estante__nome">Claude Code e API</span></li>
+              <li class="estante__item"><span class="estante__logo"><img src="assets/logos/n8n.svg" alt="" width="40" height="40"></span><span class="estante__nome">n8n</span></li>
+              <li class="estante__item"><span class="estante__logo"><img src="assets/logos/powerautomate.svg" alt="" width="40" height="40"></span><span class="estante__nome">Power Automate</span></li>
+              <li class="estante__item"><span class="estante__logo"><img src="assets/logos/playwright.svg" alt="" width="40" height="40"></span><span class="estante__nome">Playwright</span></li>
+              <li class="estante__item"><span class="estante__logo"><img src="assets/logos/python.svg" alt="" width="40" height="40"></span><span class="estante__nome">Python</span></li>
+              <li class="estante__item"><span class="estante__logo"><img src="assets/logos/powershell.svg" alt="" width="40" height="40"></span><span class="estante__nome">PowerShell</span></li>
+            </ul>
+          </div>
+          <div class="estante__linha" data-grupo="software">
+            <h3 class="estante__grupo">Software</h3>
+            <ul class="estante__lista">
+              <li class="estante__item"><span class="estante__logo"><img src="assets/logos/nextjs.svg" alt="" width="40" height="40"></span><span class="estante__nome">Next.js</span></li>
+              <li class="estante__item"><span class="estante__logo"><img src="assets/logos/react.svg" alt="" width="40" height="40"></span><span class="estante__nome">React</span></li>
+              <li class="estante__item"><span class="estante__logo"><img src="assets/logos/typescript.svg" alt="" width="40" height="40"></span><span class="estante__nome">TypeScript</span></li>
+              <li class="estante__item"><span class="estante__logo"><img src="assets/logos/supabase.svg" alt="" width="40" height="40"></span><span class="estante__nome">Supabase</span></li>
+              <li class="estante__item"><span class="estante__logo"><img src="assets/logos/postgresql.svg" alt="" width="40" height="40"></span><span class="estante__nome">PostgreSQL</span></li>
+              <li class="estante__item"><span class="estante__logo"><img src="assets/logos/threejs.svg" alt="" width="40" height="40"></span><span class="estante__nome">Three.js</span></li>
+            </ul>
+          </div>
+          <div class="estante__linha" data-grupo="microsoft">
+            <h3 class="estante__grupo">Microsoft e nuvem</h3>
+            <ul class="estante__lista">
+              <li class="estante__item"><span class="estante__logo"><img src="assets/logos/excel.svg" alt="" width="40" height="40"></span><span class="estante__nome">Excel</span></li>
+              <li class="estante__item"><span class="estante__logo"><img src="assets/logos/outlook.svg" alt="" width="40" height="40"></span><span class="estante__nome">Outlook</span></li>
+              <li class="estante__item"><span class="estante__logo"><img src="assets/logos/onedrive.svg" alt="" width="40" height="40"></span><span class="estante__nome">OneDrive</span></li>
+              <li class="estante__item"><span class="estante__logo"><img src="assets/logos/microsoft365.svg" alt="" width="40" height="40"></span><span class="estante__nome">Microsoft 365</span></li>
+              <li class="estante__item"><span class="estante__logo"><img src="assets/logos/azure.svg" alt="" width="40" height="40"></span><span class="estante__nome">Azure</span></li>
+              <li class="estante__item"><span class="estante__logo"><img src="assets/logos/github.svg" alt="" width="40" height="40"></span><span class="estante__nome">GitHub</span></li>
+            </ul>
           </div>
         </div>
       </div>
@@ -203,7 +196,7 @@
       <div class="conteiner projetos__cabeca">
         <p class="rotulo">Projetos</p>
         <h2 class="titulo titulo--gigante" id="projetos-titulo" data-linhas>Processos que rodam <em>sozinhos</em>.</h2>
-        <p class="texto">Cada projeto aparece do jeito que funciona. Os que fiz no Grupo Aste mostram só a base, com dados fictícios.</p>
+        <p class="texto">Os do Grupo Aste aparecem com dados fictícios.</p>
       </div>
 
       <!-- Central de Contas a Pagar -->
@@ -215,8 +208,7 @@
               <h3 class="proj__titulo" id="central-titulo">Central de <em>Contas a Pagar</em></h3>
             </div>
             <div class="proj__lado">
-              <p class="proj__desc">Do boleto recebido ao lançamento no ERP: robôs coletam, a IA lê e regras conferem cada cobrança.</p>
-              <ul class="selos"><li>código e dados privados</li><li>ilustração com dados fictícios</li></ul>
+              <p class="proj__desc">O boleto chega por e-mail e vai até o ERP sem ninguém digitar.</p>
             </div>
           </header>
 
@@ -227,27 +219,27 @@
               <ol class="fluxo__nos">
                 <li class="no">
                   <span class="no__icone"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 6 8-6"/></svg></span>
-                  <span class="no__texto"><strong>Caixa de e-mail</strong><span>um robô lê os anexos a cada 2 min</span></span>
+                  <span class="no__texto"><strong>Chega o e-mail</strong></span>
                 </li>
                 <li class="no">
                   <span class="no__icone"><svg viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V7.5a3.5 3.5 0 0 1 6.7-1.4"/><path d="M12 14.5v2"/></svg></span>
-                  <span class="no__texto"><strong>PDF com senha</strong><span>se tiver senha, destrava</span></span>
+                  <span class="no__texto"><strong>Destrava o PDF</strong></span>
                 </li>
                 <li class="no no--ia">
                   <span class="no__icone"><svg viewBox="0 0 24 24"><path d="M11 3.5l1.9 5.1 5.1 1.9-5.1 1.9L11 17.5l-1.9-5.1L4 10.5l5.1-1.9z"/><path d="M18.5 15l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/></svg></span>
-                  <span class="no__texto"><strong>A IA lê o boleto</strong><span>tira os dados do PDF</span></span>
+                  <span class="no__texto"><strong>A IA lê o boleto</strong></span>
                 </li>
                 <li class="no">
                   <span class="no__icone"><svg viewBox="0 0 24 24"><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.3 10.9l7.4-3.8M8.3 13.1l7.4 3.8"/></svg></span>
-                  <span class="no__texto"><strong>API da central</strong><span>recebe os dados</span></span>
+                  <span class="no__texto"><strong>A central recebe</strong></span>
                 </li>
                 <li class="no">
                   <span class="no__icone"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5.5c0 4.3-3 7.8-7 9-4-1.2-7-4.7-7-9V6z"/><path d="m8.8 12 2.3 2.3 4.2-4.6"/></svg></span>
-                  <span class="no__texto"><strong>7 conferências</strong><span>regras checam cada cobrança</span></span>
+                  <span class="no__texto"><strong>7 conferências</strong></span>
                 </li>
                 <li class="no">
                   <span class="no__icone"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M9 4v16M15 4v16"/></svg></span>
-                  <span class="no__texto"><strong>Painel por etapa</strong><span>cada boleto no seu lugar</span></span>
+                  <span class="no__texto"><strong>Painel</strong></span>
                 </li>
               </ol>
               <span class="boleto" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
@@ -257,43 +249,21 @@
           <div class="etapas conteiner">
             <p class="etapas__titulo">Painel da central</p>
             <ol class="etapas__lista">
-              <li>Aguardando boleto</li>
+              <li>Aguardando</li>
               <li>Recebido</li>
-              <li>Em conferência</li>
-              <li>Lançado no ERP</li>
-              <li>Enviado ao financeiro</li>
+              <li>Conferindo</li>
+              <li>No ERP</li>
+              <li>No financeiro</li>
               <li>Concluído</li>
             </ol>
-            <p class="etapas__atual" aria-hidden="true">Aguardando boleto</p>
+            <p class="etapas__atual" aria-hidden="true">Aguardando</p>
           </div>
           </div>
         </div>
 
         <div class="central__detalhe conteiner">
-          <div class="central__grade">
-            <div class="ritmo">
-              <div class="ritmo__item">
-                <span class="ritmo__quando">Todo dia</span>
-                <p>O que vence em até 10 dias e ainda não tem boleto vira um e-mail cobrando o fornecedor.</p>
-              </div>
-              <div class="ritmo__item">
-                <span class="ritmo__quando">No fim do dia</span>
-                <p>O lote com os anexos vai por e-mail para o financeiro.</p>
-              </div>
-            </div>
-            <div class="conferencias">
-              <p class="conferencias__titulo">Exemplos de conferência</p>
-              <ul class="conferencias__lista">
-                <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>CNPJ do pagador</li>
-                <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Nota fiscal anexada</li>
-                <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Valor da NF igual ao do boleto</li>
-                <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Linha digitável duplicada</li>
-                <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Vencimento sem boleto</li>
-              </ul>
-            </div>
-          </div>
           <footer class="proj__rodape">
-            <ul class="chips"><li>Next.js</li><li>TypeScript</li><li>Supabase</li><li>PostgreSQL</li><li class="chip--ia">Claude API</li><li>n8n</li><li>Power Automate</li><li>Playwright</li><li>Azure</li></ul>
+            <ul class="chips"><li>Next.js</li><li>Supabase</li><li class="chip--ia">Claude API</li><li>n8n</li><li>Playwright</li></ul>
           </footer>
         </div>
       </article>
@@ -304,8 +274,7 @@
           <div class="lancador__cabeca">
             <p class="rotulo">Automação · Grupo Aste</p>
             <h3 class="proj__titulo" id="lancador-titulo">Lançador automático no <em>ERP</em></h3>
-            <p class="proj__desc">Lança os boletos no ERP pela tela do sistema, confere antes de gravar e deixa o e-mail de aprovação pronto.</p>
-            <ul class="selos"><li>PowerShell · sem IA</li><li>só a base</li></ul>
+            <p class="proj__desc">Lança o boleto no ERP sozinho e confere tudo antes de gravar.</p>
           </div>
           <div class="lancador__cena">
             <div class="mostrador" aria-hidden="true">
@@ -329,12 +298,10 @@
               </div>
             </div>
             <ol class="passos">
-              <li>Lê o PDF por regras fixas</li>
-              <li>Confere as 8 travas</li>
-              <li>Preenche o formulário no ERP</li>
-              <li>Relê a tela e compara</li>
-              <li>Grava e registra o controle</li>
-              <li>Gera o formulário e o rascunho no Outlook</li>
+              <li>Lê o PDF</li>
+              <li>Confere 8 travas</li>
+              <li>Preenche o ERP</li>
+              <li>Grava e avisa</li>
             </ol>
           </div>
         </div>
@@ -345,66 +312,65 @@
             <li><span class="cifra"><span class="odometro" data-valor="1">1</span><small>clique</small></span><p>para iniciar</p></li>
           </ul>
           <footer class="proj__rodape">
-            <ul class="chips"><li>PowerShell</li><li>Automação de interface do Windows</li><li>Outlook</li><li>PDF</li></ul>
+            <ul class="chips"><li>PowerShell</li><li>Outlook</li><li>PDF</li></ul>
           </footer>
         </div>
       </article>
 
-      <!-- Atualização diária de relatório -->
+      <!-- Dashboard de varejo no automático (o bloco ainda se chama "madrugada": relógio + cenários + trilha) -->
       <article class="proj madrugada" id="madrugada" aria-labelledby="madrugada-titulo">
         <div class="conteiner">
-          <div class="relogio" role="img" aria-label="02:00, a hora em que o fluxo roda">
-            <span class="relogio__hora" aria-hidden="true"><span class="relogio__dig" data-seq="2000">2</span><span class="relogio__dig" data-seq="3012">3</span><span class="relogio__sep">:</span><span class="relogio__dig" data-seq="5000">5</span><span class="relogio__dig" data-seq="9000">9</span></span>
-            <span class="relogio__legenda">Toda madrugada, às 02:00</span>
+          <div class="relogio" role="img" aria-label="09:30, a hora em que o robô roda">
+            <span class="relogio__hora" aria-hidden="true"><span class="relogio__dig" data-seq="0000">0</span><span class="relogio__dig" data-seq="9999">9</span><span class="relogio__sep">:</span><span class="relogio__dig" data-seq="2223">2</span><span class="relogio__dig" data-seq="7890">7</span></span>
+            <span class="relogio__legenda">Todo dia, às 09:30</span>
           </div>
           <header class="proj__cabeca proj__cabeca--solto">
             <div>
               <p class="rotulo">Automação · Grupo Aste</p>
-              <h3 class="proj__titulo" id="madrugada-titulo">Atualização <em>diária</em> de relatório</h3>
+              <h3 class="proj__titulo" id="madrugada-titulo">Dashboard de varejo <em>no automático</em></h3>
             </div>
             <div class="proj__lado">
-              <p class="proj__desc">Toda madrugada atualiza a planilha mestre, confere a gravação e envia ao gestor um resumo escrito por IA.</p>
-              <ul class="selos"><li>n8n · versão alternativa em Power Automate</li><li>só a base</li></ul>
+              <p class="proj__desc">Atalhos em PowerShell buscam os relatórios, atualizam o dash e montam a apresentação do dia.</p>
             </div>
           </header>
 
           <div class="cenarios">
-            <p class="cenarios__rotulo" id="cenarios-rotulo">Veja o que acontece quando</p>
+            <p class="cenarios__rotulo" id="cenarios-rotulo">Simule</p>
             <div class="cenarios__botoes" role="group" aria-labelledby="cenarios-rotulo">
-              <button class="cenario is-ativo" type="button" data-cenario="novo" aria-pressed="true">chega arquivo novo</button>
-              <button class="cenario" type="button" data-cenario="sem" aria-pressed="false">não chega arquivo</button>
-              <button class="cenario" type="button" data-cenario="erro" aria-pressed="false">a gravação falha</button>
+              <button class="cenario is-ativo" type="button" data-cenario="normal" aria-pressed="true">dia normal</button>
+              <button class="cenario" type="button" data-cenario="erp" aria-pressed="false">ERP com erro</button>
+              <button class="cenario" type="button" data-cenario="catalogo" aria-pressed="false">catálogo atrasado</button>
             </div>
           </div>
 
-          <div class="trilha" data-cenario="novo">
+          <div class="trilha" data-cenario="normal">
             <svg class="trilha__svg" aria-hidden="true"><path class="trilha__linha"/><path class="trilha__feito"/></svg>
             <ol class="trilha__nos">
               <li class="parada">
-                <span class="parada__icone"><img src="assets/logos/onedrive.svg" alt="" width="26" height="26"></span>
-                <strong>Busca o relatório do dia</strong><span>no OneDrive</span>
+                <span class="parada__icone"><img src="assets/logos/powershell.svg" alt="" width="24" height="24"></span>
+                <strong>O atalho dispara</strong>
               </li>
               <li class="parada">
-                <span class="parada__icone"><img src="assets/logos/excel.svg" alt="" width="24" height="24"></span>
-                <strong>Grava a aba de base</strong><span>se o arquivo é novo</span>
+                <span class="parada__icone"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5.5" rx="7.5" ry="2.8"/><path d="M4.5 5.5v6c0 1.5 3.4 2.8 7.5 2.8s7.5-1.3 7.5-2.8v-6"/><path d="M4.5 11.5v6c0 1.5 3.4 2.8 7.5 2.8s7.5-1.3 7.5-2.8v-6"/></svg></span>
+                <strong>Busca no ERP</strong>
               </li>
               <li class="parada">
-                <span class="parada__icone"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="m8.5 12.2 2.4 2.4 4.6-5"/></svg></span>
-                <strong>Lê de volta</strong><span>para conferir a gravação</span>
-              </li>
-              <li class="parada parada--ia">
-                <span class="parada__icone"><svg viewBox="0 0 24 24"><path d="M11 3.5l1.9 5.1 5.1 1.9-5.1 1.9L11 17.5l-1.9-5.1L4 10.5l5.1-1.9z"/><path d="M18.5 15l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/></svg></span>
-                <strong>A IA escreve o resumo</strong><span>do estoque</span>
+                <span class="parada__icone"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2.5"/><circle cx="9" cy="10" r="2"/><path d="m21 15.5-5-5-9.5 9.5"/></svg></span>
+                <strong>Baixa o catálogo com fotos</strong>
               </li>
               <li class="parada">
-                <span class="parada__icone"><img src="assets/logos/outlook.svg" alt="" width="24" height="24"></span>
-                <strong>E-mail ao gestor</strong><span>pelo Outlook</span>
+                <span class="parada__icone"><svg viewBox="0 0 24 24"><path d="M4 20h16M7 16v-5M12 16V7M17 16v-8"/></svg></span>
+                <strong>Atualiza o dash</strong>
+              </li>
+              <li class="parada">
+                <span class="parada__icone"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M12 17v3M8.5 20h7"/><path d="m7 13 3-3 2.5 2L17 7.5"/></svg></span>
+                <strong>Monta a apresentação</strong>
               </li>
             </ol>
-            <p class="aviso" aria-live="polite"><span class="aviso__sinal" aria-hidden="true">!</span><span class="aviso__texto">Sem arquivo novo: avisa e não mexe na planilha.</span></p>
+            <p class="aviso" aria-live="polite"><span class="aviso__sinal" aria-hidden="true">✓</span><span class="aviso__texto">Tudo pronto e os links vão por e-mail.</span></p>
           </div>
           <footer class="proj__rodape">
-            <ul class="chips"><li>n8n</li><li>OneDrive</li><li>Excel</li><li>Outlook</li><li>Power Automate</li></ul>
+            <ul class="chips"><li>PowerShell</li><li>Excel</li><li>PowerPoint</li><li>Next.js</li></ul>
           </footer>
         </div>
       </article>
@@ -418,8 +384,7 @@
               <h3 class="proj__titulo" id="time-titulo">Time de agentes de <em class="ia">marketing</em></h3>
             </div>
             <div class="proj__lado">
-              <p class="proj__desc">Seis agentes no Claude Code que passam o trabalho adiante, da prospecção à gestão do cliente.</p>
-              <ul class="selos"><li class="selo--ia">Claude Code · subagentes</li></ul>
+              <p class="proj__desc">Seis agentes que passam o trabalho um para o outro, do primeiro contato à entrega.</p>
             </div>
           </header>
           <div class="mesa conteiner">
@@ -427,32 +392,32 @@
               <article class="agente" style="--c: #c9a9ff">
                 <span class="agente__arquivo">prospector</span>
                 <h4 class="agente__nome">Prospecção</h4>
-                <p class="agente__desc">Encontra empresas com potencial, como negócios sem site ou com site fraco, e monta a lista de contatos.</p>
+                <p class="agente__desc">Acha os clientes.</p>
               </article>
               <article class="agente" style="--c: #b48cff">
                 <span class="agente__arquivo">diagnosticador</span>
                 <h4 class="agente__nome">Diagnóstico</h4>
-                <p class="agente__desc">Analisa o negócio do lead e identifica os processos manuais que podem ser automatizados.</p>
+                <p class="agente__desc">Acha o que dá para automatizar.</p>
               </article>
-              <article class="agente" style="--c: #9b9cff">
+              <article class="agente" style="--c: #e29bd4">
                 <span class="agente__arquivo">arquiteto-automacao</span>
-                <h4 class="agente__nome">Arquitetura de automação</h4>
-                <p class="agente__desc">Desenha a solução: quais automações, integrações e agentes resolvem o diagnóstico.</p>
+                <h4 class="agente__nome">Arquitetura</h4>
+                <p class="agente__desc">Desenha a solução.</p>
               </article>
-              <article class="agente" style="--c: #84aeff">
+              <article class="agente" style="--c: #ff9fa0">
                 <span class="agente__arquivo">redator</span>
                 <h4 class="agente__nome">Redação</h4>
-                <p class="agente__desc">Escreve a abordagem, a proposta e o conteúdo de comunicação com o cliente.</p>
+                <p class="agente__desc">Escreve a proposta.</p>
               </article>
-              <article class="agente" style="--c: #6cc4ff">
+              <article class="agente" style="--c: #fb923c">
                 <span class="agente__arquivo">orcamentista</span>
                 <h4 class="agente__nome">Orçamento</h4>
-                <p class="agente__desc">Monta o orçamento a partir dos pacotes de serviço e do escopo desenhado.</p>
+                <p class="agente__desc">Monta o preço.</p>
               </article>
-              <article class="agente" style="--c: #93dcff">
+              <article class="agente" style="--c: #ffc08f">
                 <span class="agente__arquivo">gestor-cliente</span>
                 <h4 class="agente__nome">Gestão do cliente</h4>
-                <p class="agente__desc">Acompanha a entrega e o relacionamento depois do fechamento.</p>
+                <p class="agente__desc">Cuida da entrega.</p>
               </article>
             </div>
             <span class="bastao" aria-hidden="true"><i></i><span class="bastao__texto">lista de contatos</span></span>
@@ -466,7 +431,7 @@
           <header class="escritorio__cabeca conteiner">
             <p class="rotulo">Multiagentes · destaque</p>
             <h3 class="escritorio__titulo" id="escritorio-titulo">Escritório dos <em class="ia">Agentes</em></h3>
-            <p class="proj__desc">Agentes especializados que conversam entre si e entregam o trabalho pronto.</p>
+            <p class="proj__desc">Agentes que dividem o trabalho e entregam pronto.</p>
           </header>
           <figure class="escritorio__figura">
             <div class="escritorio__moldura">
@@ -494,10 +459,10 @@
           <div class="escritorio__painel conteiner">
             <p class="escritorio__nome" aria-hidden="true">Escritório dos <em class="ia">Agentes</em></p>
             <ol class="momentos">
-              <li class="momento" data-x="77" data-y="39" data-zoom="1.8" data-r="17"><span class="momento__barra" aria-hidden="true"><i></i></span><strong>A equipe envia os materiais</strong><span>tudo chega num lugar só</span></li>
-              <li class="momento" data-x="43" data-y="27" data-zoom="1.9" data-r="11"><span class="momento__barra" aria-hidden="true"><i></i></span><strong>O coordenador distribui</strong><span>cada tarefa vai para o agente certo</span></li>
-              <li class="momento" data-x="54" data-y="49" data-zoom="1.8" data-r="15"><span class="momento__barra" aria-hidden="true"><i></i></span><strong>Os agentes pesquisam, debatem e produzem</strong><span>Buscador, Analista, Conferente e Mensageiro</span></li>
-              <li class="momento" data-x="50" data-y="50" data-zoom="1"><span class="momento__barra" aria-hidden="true"><i></i></span><strong>Entrega pronta</strong><span>nada sai sem aprovação</span></li>
+              <li class="momento" data-x="77" data-y="39" data-zoom="1.8" data-r="17"><span class="momento__barra" aria-hidden="true"><i></i></span><strong>Os materiais chegam</strong></li>
+              <li class="momento" data-x="43" data-y="27" data-zoom="1.9" data-r="11"><span class="momento__barra" aria-hidden="true"><i></i></span><strong>O coordenador distribui</strong></li>
+              <li class="momento" data-x="54" data-y="49" data-zoom="1.8" data-r="15"><span class="momento__barra" aria-hidden="true"><i></i></span><strong>Os agentes produzem</strong></li>
+              <li class="momento" data-x="50" data-y="50" data-zoom="1"><span class="momento__barra" aria-hidden="true"><i></i></span><strong>Entrega aprovada</strong></li>
             </ol>
             <ul class="chips"><li class="chip--ia">Claude API</li><li>Multiagentes</li><li>Netlify</li></ul>
           </div>
@@ -514,8 +479,8 @@
             <div class="garfo">
               <span class="garfo__no">Dados de mercado</span>
               <span class="garfo__ramos"><span class="garfo__no garfo__no--a">Estratégia A</span><span class="garfo__no garfo__no--b">Estratégia B</span></span>
-              <span class="garfo__no">Execução simulada com saldo virtual</span>
-              <span class="garfo__no">Comparação de oito semanas</span>
+              <span class="garfo__no">Saldo virtual</span>
+              <span class="garfo__no">8 semanas de comparação</span>
             </div>
             <ul class="chips"><li>Python</li><li>Freqtrade</li><li>VPS</li></ul>
           </div>
@@ -532,7 +497,7 @@
               <line class="grafico__cursor" x1="0" y1="0" x2="0" y2="340"/>
             </svg>
             <ol class="grafico__eixo" aria-hidden="true"><li>S1</li><li>S2</li><li>S3</li><li>S4</li><li>S5</li><li>S6</li><li>S7</li><li>S8</li></ol>
-            <figcaption class="grafico__aviso">Ilustração. Não há resultado real: o gráfico só mostra como as duas estratégias são comparadas em modo simulado.</figcaption>
+            <figcaption class="grafico__aviso">Ilustração, sem resultado real.</figcaption>
           </figure>
         </div>
       </article>
@@ -691,7 +656,7 @@
           <p class="rotulo">Software sob medida</p>
           <h2 class="titulo" id="produtos-titulo" data-linhas>Sistemas que <em>eu construí</em>.</h2>
         </div>
-        <p class="texto">Do banco de dados ao app no celular. Os do Grupo Aste aparecem só pela base, sem dados de verdade.</p>
+        <p class="texto">Do banco de dados ao app no celular.</p>
       </div>
       <div class="pilha">
         <div class="pilha__item" style="--i: 0">
@@ -699,7 +664,7 @@
             <div class="produto__texto">
               <span class="produto__tipo">Grupo Aste · Crédito</span>
               <h3 class="produto__nome">Comitê de Crédito</h3>
-              <p class="produto__desc">Loja nova aprovada num fluxo só: comercial, financeiro e diretoria, com dossiê de dados públicos e aviso no celular.</p>
+              <p class="produto__desc">Loja nova aprovada num fluxo só, com aviso no celular.</p>
               <ul class="chips"><li>Next.js</li><li>Supabase</li><li>App no celular</li><li>Dados públicos</li></ul>
             </div>
             <div class="produto__arte" aria-hidden="true">
@@ -731,7 +696,7 @@
             <div class="produto__texto">
               <span class="produto__tipo">Grupo Aste · Comissões</span>
               <h3 class="produto__nome">Central de Comissões</h3>
-              <p class="produto__desc">Lê os relatórios do ERP, calcula a comissão de cada representante e deixa o e-mail de cada um pronto.</p>
+              <p class="produto__desc">Calcula a comissão de cada representante e deixa o e-mail pronto.</p>
               <ul class="chips"><li>Next.js</li><li>Supabase</li><li>Excel</li><li>E-mail</li></ul>
             </div>
             <div class="produto__arte" aria-hidden="true">
@@ -761,7 +726,7 @@
             <div class="produto__texto">
               <span class="produto__tipo">Grupo Aste · Atualizações</span>
               <h3 class="produto__nome">Painel de Atualizações</h3>
-              <p class="produto__desc">Todo dia às 07:00, as novidades do dia organizadas por estado, num mapa do Brasil clicável.</p>
+              <p class="produto__desc">As novidades do dia num mapa do Brasil, às 07:00.</p>
               <ul class="chips"><li>Node.js</li><li>JSON</li><li>Mapa do IBGE</li></ul>
             </div>
             <div class="produto__arte" aria-hidden="true">
@@ -839,8 +804,8 @@
               <defs>
                 <clipPath id="trajeto-corte"><rect class="trajeto__corte" x="0" y="0" width="0" height="0"/></clipPath>
                 <linearGradient id="trajeto-gradiente" x1="0" y1="0" x2="1" y2="0">
-                  <stop offset="0" stop-color="#6cc4ff"/>
-                  <stop offset="0.55" stop-color="#6cc4ff"/>
+                  <stop offset="0" stop-color="#fb923c"/>
+                  <stop offset="0.55" stop-color="#fb923c"/>
                   <stop offset="1" stop-color="#b48cff"/>
                 </linearGradient>
               </defs>
